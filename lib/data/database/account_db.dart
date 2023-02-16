@@ -1,12 +1,12 @@
 import 'package:hive/hive.dart';
 import 'package:halokak_app/data/database/base_db.dart';
-import 'package:halokak_app/models/user_model.dart';
+import 'package:halokak_app/models/account_model.dart';
 
-class UserDB extends BaseDB {
-  Box<User>? box;
+class AccountDB extends BaseDB {
+  Box<Account>? box;
 
   Future<void> open() async {
-    box = await openBox<User>(userBox);
+    box = await openBox<Account>(userBox);
   }
 
   Future<void> close() async {
@@ -14,11 +14,11 @@ class UserDB extends BaseDB {
     box?.close();
   }
 
-  void saveUser(User data) async {
+  void saveUser(Account data) async {
     box?.put(data.id, data);
   }
 
-  User? getUser(String key) {
+  Account? getUser(String key) {
     return box?.get(key);
   }
 }

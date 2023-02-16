@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:halokak_app/models/user_model.dart';
+import 'package:halokak_app/models/account_model.dart';
 import '../../configs/environment.dart';
 import '../local/user_storage.dart';
 
@@ -13,7 +13,7 @@ class BaseDB {
       userStorage.addHiveKey(base64UrlEncode(Hive.generateSecureKey()));
     }
     Hive.initFlutter();
-    Hive.registerAdapter(UserAdapter());
+    Hive.registerAdapter(AccountAdapter());
   }
 
   Future<Box<T>> openBox<T>(String boxKey) async {
@@ -32,5 +32,5 @@ class BaseDB {
 
   static final String _base = Environment().config?.baseDbUrl ?? "";
 
-  var userBox = "${_base}user";
+  var userBox = "${_base}acount";
 }

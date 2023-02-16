@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "645013067040",
+    "project_id": "halokak-83cea",
+    "storage_bucket": "halokak-83cea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:645013067040:android:daca45901ae8be83163345",
+        "android_client_info": {
+          "package_name": "id.betalogika.halokak_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "645013067040-5urg46r58sdk8fp201pre7udhgnkimci.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFrryPaVwyOnp6EFGAjp98r4givnQoamI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "645013067040-5urg46r58sdk8fp201pre7udhgnkimci.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

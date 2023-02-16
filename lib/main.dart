@@ -5,6 +5,8 @@ import 'package:halokak_app/providers/auth_provider.dart';
 import 'package:halokak_app/scenes/authentication/login_scene.dart';
 import 'package:halokak_app/scenes/main_container_scene.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 import 'configs/environment.dart';
 
@@ -12,6 +14,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await BaseDB().setupDB();
   Environment().initConfig(const String.fromEnvironment('ENVIRONMENT', defaultValue: Environment.STAGING));
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
       MultiProvider(
         providers: [
