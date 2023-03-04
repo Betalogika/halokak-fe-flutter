@@ -35,25 +35,34 @@ class _MainContainerScene extends State<MainContainerScene> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        child: Scaffold(
-          body: Center(
-            child: _pages.elementAt(_selectedIndex),
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Akun',
-              ),
-            ],
-            currentIndex: _selectedIndex,
-            onTap: _onItemTapped,
-          ),
+        child: const Scaffold(
+          body: HomeScene(),
         ),
         onWillPop: () => showExitPopup(context));
   }
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return WillPopScope(
+  //       child: Scaffold(
+  //         body: Center(
+  //           child: _pages.elementAt(_selectedIndex),
+  //         ),
+  //         bottomNavigationBar: BottomNavigationBar(
+  //           items: const <BottomNavigationBarItem>[
+  //             BottomNavigationBarItem(
+  //               icon: Icon(Icons.home),
+  //               label: 'Home',
+  //             ),
+  //             BottomNavigationBarItem(
+  //               icon: Icon(Icons.person),
+  //               label: 'Akun',
+  //             ),
+  //           ],
+  //           currentIndex: _selectedIndex,
+  //           onTap: _onItemTapped,
+  //         ),
+  //       ),
+  //       onWillPop: () => showExitPopup(context));
+  // }
 }
