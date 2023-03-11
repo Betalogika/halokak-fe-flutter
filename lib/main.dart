@@ -34,13 +34,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AuthProvider authProvider = Provider.of(context);
-    Widget body;
-    if (authProvider.isAuthenticated) {
-      body = const MainContainerScene();
-    } else {
-      body = const LoginScene();
-    }
+    // AuthProvider authProvider = Provider.of(context);
+    Widget body = const MainContainerScene();
+    // if (authProvider.isAuthenticated) {
+    //   body = const MainContainerScene();
+    // } else {
+    //   body = const LoginScene();
+    // }
     return MaterialApp(
       title: TextStorage.appName,
       theme: ThemeData(
