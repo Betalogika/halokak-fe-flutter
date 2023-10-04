@@ -1,14 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:halokak_app/data/database/base_db.dart';
+import 'package:halokak_app/data/local/color_storage.dart';
 import 'package:halokak_app/data/local/text_storage.dart';
+import 'package:halokak_app/models/enum/navigation_enum.dart';
 import 'package:halokak_app/providers/auth_provider.dart';
+import 'package:halokak_app/providers/navigation_provider.dart';
 import 'package:halokak_app/scenes/authentication/login_scene.dart';
 import 'package:halokak_app/scenes/main_container_scene.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
 
 import 'configs/environment.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +25,9 @@ void main() async {
         providers: [
           ChangeNotifierProvider(
             create: (context) => AuthProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => NavigationProvider(),
           )
         ],
         child: const MyApp(),
@@ -34,19 +40,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // AuthProvider authProvider = Provider.of(context);
-    Widget body = const MainContainerScene();
-    // if (authProvider.isAuthenticated) {
-    //   body = const MainContainerScene();
-    // } else {
-    //   body = const LoginScene();
-    // }
+    var navigationItem = context.select<NavigationProvider, NavigationItem>((value) => value.navigationItem);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: TextStorage.appName,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: ColorStorage.mcBlue,
+        dividerColor: Colors.transparent,
       ),
-      home: body,
+      home: navigationItem == NavigationItem.login ? const LoginScene() : const MainContainerScene(),
     );
   }
 }

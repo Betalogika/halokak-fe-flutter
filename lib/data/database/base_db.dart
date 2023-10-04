@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:halokak_app/models/account_model.dart';
+import 'package:halokak_app/models/db/account_model.dart';
 import '../../configs/environment.dart';
 import '../local/user_storage.dart';
 

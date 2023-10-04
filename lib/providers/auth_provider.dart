@@ -1,9 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:halokak_app/data/database/account_db.dart';
 import 'package:halokak_app/data/local/user_storage.dart';
+import 'package:halokak_app/models/db/account_model.dart';
 import 'package:halokak_app/models/responses/login_response.dart';
-import 'package:halokak_app/models/account_model.dart';
 
 class AuthProvider extends ChangeNotifier {
   UserStorage userStorage = UserStorage();
@@ -27,9 +26,6 @@ class AuthProvider extends ChangeNotifier {
 
   void closeDB() {
     userDB.close();
-  }
-
-  void login(String emailAddress, String password) async {
   }
 
   void setAuthenticated(LoginResponse data) {

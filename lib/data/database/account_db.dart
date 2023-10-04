@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:halokak_app/data/database/base_db.dart';
-import 'package:halokak_app/models/account_model.dart';
+import 'package:halokak_app/models/db/account_model.dart';
 
 class AccountDB extends BaseDB {
   Box<Account>? box;
