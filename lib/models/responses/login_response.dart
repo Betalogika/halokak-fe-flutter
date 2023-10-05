@@ -1,15 +1,18 @@
-import 'package:halokak_app/models/user_model.dart';
-
 class LoginResponse {
   String? token;
-  User? user;
+  String? email;
+  String? name;
+  String? uid;
+  String? message;
 
-  LoginResponse({ this.token, this.user });
+  LoginResponse({ this.token, this.email, this.name, this.uid });
 
   factory LoginResponse.from(Map<String, dynamic> json) {
     return LoginResponse(
-      token: json['token'] ?? "",
-      user: json['user'] != null ? User.from(json['qlinik']) : null,
+      token: json['token'],
+      email: json['email'],
+      name: json['name'],
+      uid: json['uid'],
     );
   }
 }

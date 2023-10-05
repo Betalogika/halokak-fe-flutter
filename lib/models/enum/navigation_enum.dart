@@ -1,0 +1,4 @@
+enum NavigationItem {
+  home,
+  login,
+}

@@ -11,14 +11,6 @@ class MainContainerScene extends StatefulWidget {
 }
 
 class _MainContainerScene extends State<MainContainerScene> {
-  int _selectedIndex = 0;
-  static const List<Widget> _pages = <Widget>[
-    HomeScene(),
-    Icon(
-      Icons.camera,
-      size: 150,
-    ),
-  ];
 
   @override
   void initState() {
@@ -26,33 +18,11 @@ class _MainContainerScene extends State<MainContainerScene> {
     setupExitCloseWindow(context);
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        child: Scaffold(
-          body: Center(
-            child: _pages.elementAt(_selectedIndex),
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Akun',
-              ),
-            ],
-            currentIndex: _selectedIndex,
-            onTap: _onItemTapped,
-          ),
+        child: const Scaffold(
+          body: HomeScene(),
         ),
         onWillPop: () => showExitPopup(context));
   }

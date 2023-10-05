@@ -1,15 +1,13 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:halokak_app/custom/exit_popup.dart';
-import 'package:halokak_app/data/local/text_storage.dart';
-import 'package:halokak_app/data/remote/auth_api.dart';
-import 'package:halokak_app/models/error_model.dart';
-import 'package:halokak_app/models/responses/login_response.dart';
-import 'package:halokak_app/providers/auth_provider.dart';
 import 'package:halokak_app/custom/progress_dialog.dart';
 import 'package:halokak_app/custom/toast.dart';
+import 'package:halokak_app/data/local/text_storage.dart';
+import 'package:halokak_app/data/remote/auth_api.dart';
+import 'package:halokak_app/models/enum/navigation_enum.dart';
+import 'package:halokak_app/providers/auth_provider.dart';
+import 'package:halokak_app/providers/navigation_provider.dart';
 import 'package:provider/provider.dart';
 
 class LoginScene extends StatefulWidget {
@@ -24,24 +22,27 @@ class _LoginScene extends State<LoginScene> {
   String email = "";
   String password = "";
   AuthProvider? authProvider;
+  NavigationProvider? _navigationProvider;
 
   @override
   void initState() {
     super.initState();
     setupExitCloseWindow(context);
     authProvider = Provider.of(context, listen: false);
+    _navigationProvider = Provider.of(context, listen: false);
   }
 
   void _onLoginClicked(BuildContext context) async {
     FToast fToast = FToast().init(context);
     DialogBuilder(context).showLoadingIndicator("");
     try {
-      var req = await _authApi.login(email, password);
-      if (req.statusCode == 200) {
-        authProvider?.setAuthenticated(LoginResponse.from(jsonDecode(req.body)));
+      var req = await _authApi.loginFirebase(email, password);
+      if (req.token?.isNotEmpty == true) {
+        authProvider?.setAuthenticated(req);
+        _navigationProvider?.setNavigationItem(NavigationItem.home);
       } else {
         if (!mounted) return;
-        showToast(context, fToast, ErrorModel.from(jsonDecode(req.body)).message);
+        showToast(context, fToast, req.message.toString());
       }
     } on Exception catch (e) {
       showToast(context, fToast, e.toString());

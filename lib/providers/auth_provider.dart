@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
-import 'package:halokak_app/data/database/user_db.dart';
+import 'package:halokak_app/data/database/account_db.dart';
 import 'package:halokak_app/data/local/user_storage.dart';
+import 'package:halokak_app/models/db/account_model.dart';
 import 'package:halokak_app/models/responses/login_response.dart';
-import 'package:halokak_app/models/user_model.dart';
 
 class AuthProvider extends ChangeNotifier {
   UserStorage userStorage = UserStorage();
-  UserDB userDB = UserDB();
+  AccountDB userDB = AccountDB();
   String token = "";
-  User? user;
+  Account? user;
 
   bool get isAuthenticated => token.isNotEmpty;
 
@@ -31,7 +31,7 @@ class AuthProvider extends ChangeNotifier {
   void setAuthenticated(LoginResponse data) {
     token = data.token ?? "";
     userStorage.addToken(token);
-    userStorage.addCurrentUserId(data.user?.id ?? "");
+    userStorage.addCurrentUserId(data.uid ?? "");
     notifyListeners();
   }
 

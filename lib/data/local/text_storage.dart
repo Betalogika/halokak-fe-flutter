@@ -1,8 +1,10 @@
 class TextStorage {
   static const appName = "Halo Kak";
-  static const titleAuth = "Login Page";
+  static const titleAuth = "Halaman Login";
+  static const titleHome = "Beranda";
 
   static const lblLogin = "Login";
+  static const lblLogout = "Logout";
   static const lblEmail = "Email";
   static const lblPassword = "Password";
   static const lblLoading = "Sedang memproses";
