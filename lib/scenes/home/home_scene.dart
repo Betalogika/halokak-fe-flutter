@@ -148,7 +148,7 @@ class _HomeScene extends State<HomeScene> {
                       ],
                     ),
                     const SizedBox(height: 30,),
-                    const Text('Hubungi mentor, Konsul terkait pekerjaan, Update seputar pekerjaan semua hanya dengan Halo Kak', style: TextStyle(fontSize: 20, color: ColorStorage.textGray, fontWeight: FontWeight.w400)),
+                    const Text('Hubungi mentor, Konsul terkait pekerjaan, Update seputar pekerjaan semua hanya dengan Halo Kak', style: TextStyle(fontSize: 20, color: ColorStorage.gray, fontWeight: FontWeight.w400)),
                     const SizedBox(height: 40,),
                     Row(
                       children: [
@@ -403,7 +403,7 @@ class _HomeScene extends State<HomeScene> {
                   padding: const EdgeInsets.only(top: 16, bottom: 16, left: 48, right: 48),
                   child: Row(
                       children: [
-                        const Text('© 2023 copyright HaloKak', style: TextStyle(fontSize: 14, color: ColorStorage.textGray, fontWeight: FontWeight.w400)),
+                        const Text('© 2023 copyright HaloKak', style: TextStyle(fontSize: 14, color: ColorStorage.gray, fontWeight: FontWeight.w400)),
                         const Expanded(child: SizedBox(),),
                         InkWell(
                           onTap: () {

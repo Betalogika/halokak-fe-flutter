@@ -45,6 +45,8 @@ dependencies:
   flutter_window_close: ^0.2.2
   firebase_auth: ^4.2.5
   firebase_core: ^2.5.0
+  google_fonts: ^4.0.4
+  package_info_plus: ^4.1.0
 
 dev_dependencies:
   flutter_test:
