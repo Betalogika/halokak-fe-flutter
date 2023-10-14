@@ -54,6 +54,10 @@ class AuthAPI extends BaseAPI {
     }
   }
 
+  Future<void> logoutFirebase() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
   Future<http.Response> logout(int id, String token) async {
     var token = await UserStorage().getToken();
     http.Response response = await http.get(Uri.parse(super.logoutPath), headers: getHeader(token ?? ""));

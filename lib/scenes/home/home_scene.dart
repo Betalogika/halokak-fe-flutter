@@ -8,6 +8,8 @@ import 'package:halokak_app/models/enum/navigation_enum.dart';
 import 'package:halokak_app/providers/navigation_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../custom/progress_dialog.dart';
+import '../../data/remote/auth_api.dart';
 import '../../providers/auth_provider.dart';
 
 class HomeScene extends StatefulWidget {
@@ -18,6 +20,7 @@ class HomeScene extends StatefulWidget {
 }
 
 class _HomeScene extends State<HomeScene> {
+  final AuthAPI _authApi = AuthAPI();
 
   @override
   void initState() {
@@ -110,8 +113,13 @@ class _HomeScene extends State<HomeScene> {
                 ),
                 !isAuthenticated ? const SizedBox() :
                 InkWell(
-                  onTap: () {
-                    context.read<AuthProvider>().setUnauthenticated();
+                  onTap: () async {
+                    DialogBuilder(context).showLoadingIndicator("");
+                    await _authApi.logoutFirebase();
+                    if (context.mounted) {
+                      context.read<AuthProvider>().setUnauthenticated();
+                      DialogBuilder(context).hideOpenDialog();
+                    }
                   },
                   child: Container(
                     alignment: Alignment.center,
