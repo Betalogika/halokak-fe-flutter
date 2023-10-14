@@ -7,6 +7,7 @@ import 'package:halokak_app/models/enum/navigation_enum.dart';
 import 'package:halokak_app/providers/auth_provider.dart';
 import 'package:halokak_app/providers/navigation_provider.dart';
 import 'package:halokak_app/scenes/authentication/login_scene.dart';
+import 'package:halokak_app/scenes/authentication/register_scene.dart';
 import 'package:halokak_app/scenes/main_container_scene.dart';
 import 'package:provider/provider.dart';
 
@@ -48,7 +49,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: ColorStorage.mcBlue,
         dividerColor: Colors.transparent,
       ),
-      home: navigationItem == NavigationItem.login ? const LoginScene() : const MainContainerScene(),
+      home: navigationItem == NavigationItem.login ? const LoginScene() :
+          navigationItem == NavigationItem.register ? const RegisterScene() : const MainContainerScene(),
     );
   }
 }

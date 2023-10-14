@@ -27,12 +27,35 @@ class AuthAPI extends BaseAPI {
       response.message = e.message ?? "Kesalahan Sistem";
       if (e.code == 'user-not-found') {
         response.message = 'No user found for that email.';
-        return response;
       } else if (e.code == 'wrong-password') {
         response.message = 'Wrong password provided for that user.';
       }
       return response;
     }
+  }
+
+  Future<LoginResponse> registerFirebase(String emailAddress, String password) async {
+    try {
+      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailAddress,
+          password: password
+      );
+      final token = await credential.user?.getIdToken();
+      return LoginResponse(token: token, email: credential.user?.email, name: credential.user?.displayName, uid: credential.user?.uid);
+    } on FirebaseAuthException catch (e) {
+      var response = LoginResponse(token: null, email: null, name: null, uid: null);
+      response.message = e.message ?? "Kesalahan Sistem";
+      if (e.code == 'weak-password') {
+        response.message = 'The password provided is too weak.';
+      } else if (e.code == 'email-already-in-use') {
+        response.message = 'The account already exists for that email.';
+      }
+      return response;
+    }
+  }
+
+  Future<void> logoutFirebase() async {
+    await FirebaseAuth.instance.signOut();
   }
 
   Future<http.Response> logout(int id, String token) async {

@@ -15,17 +15,18 @@ import '../../custom/custom_text_widget.dart';
 import '../../custom/space.dart';
 import '../../data/local/color_storage.dart';
 
-class LoginScene extends StatefulWidget {
-  const LoginScene({super.key});
+class RegisterScene extends StatefulWidget {
+  const RegisterScene({super.key});
 
   @override
-  State<LoginScene> createState() =>_LoginScene();
+  State<RegisterScene> createState() =>_RegisterScene();
 }
 
-class _LoginScene extends State<LoginScene> {
+class _RegisterScene extends State<RegisterScene> {
   final AuthAPI _authApi = AuthAPI();
   String email = "";
   String password = "";
+  String confirmPassword = "";
   AuthProvider? authProvider;
   NavigationProvider? _navigationProvider;
   bool _isObscure = true;
@@ -38,11 +39,19 @@ class _LoginScene extends State<LoginScene> {
     _navigationProvider = Provider.of(context, listen: false);
   }
 
-  void _onLoginClicked(BuildContext context) async {
+  void _onRegisterClicked(BuildContext context) async {
     FToast fToast = FToast().init(context);
+    if (email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
+      showToast(context, fToast, TextStorage.errorMandatoryData);
+      return;
+    }
+    if (password != confirmPassword) {
+      showToast(context, fToast, TextStorage.errorConfirmPassword);
+      return;
+    }
     DialogBuilder(context).showLoadingIndicator("");
     try {
-      var req = await _authApi.loginFirebase(email, password);
+      var req = await _authApi.registerFirebase(email, password);
       if (req.token?.isNotEmpty == true) {
         authProvider?.setAuthenticated(req);
         _navigationProvider?.setNavigationItem(NavigationItem.home);
@@ -60,7 +69,6 @@ class _LoginScene extends State<LoginScene> {
   @override
   Widget build(BuildContext context) {
     String appVersionName = context.select<AuthProvider, String>((value) => value.appVersionName);
-    FToast fToast = FToast().init(context);
     return WillPopScope(
         onWillPop: () => showExitPopup(context),
         child: Scaffold(
@@ -81,7 +89,7 @@ class _LoginScene extends State<LoginScene> {
                         Padding(
                           padding: const EdgeInsets.only(top: Sizes.p32, bottom: Sizes.p8, left: Sizes.p16, right: Sizes.p32),
                           child: IconButton(onPressed: () {
-                            _navigationProvider?.setNavigationItem(NavigationItem.home);
+                            _navigationProvider?.backToPrevious();
                           }, icon: const Icon(Icons.close)),
                         ),
                       ],
@@ -97,7 +105,6 @@ class _LoginScene extends State<LoginScene> {
                         Space.h24,
                         Container(
                           width: 408,
-                          height: 374,
                           margin: const EdgeInsets.only(left: Sizes.p24, right: Sizes.p24),
                           decoration: BoxDecoration(
                               color: Colors.white,
@@ -113,7 +120,7 @@ class _LoginScene extends State<LoginScene> {
                                 padding: EdgeInsets.all(Sizes.p24),
                                 child: Align(
                                   alignment: Alignment.centerLeft,
-                                  child: CustomText(value: TextStorage.titleAuth, fontWeight: FontWeight.bold, fontSize: 18, color: ColorStorage.blue),
+                                  child: CustomText(value: TextStorage.titleRegister, fontWeight: FontWeight.bold, fontSize: 18, color: ColorStorage.blue),
                                 ),
                               ),
                               const Padding(
@@ -196,8 +203,56 @@ class _LoginScene extends State<LoginScene> {
                                     onChanged: (val) => setState(() {
                                       password = val;
                                     }),
+                                  ),
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.only(left: Sizes.p24, top: Sizes.p24, bottom: Sizes.p12),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: CustomText(value: TextStorage.titleConfirmPassword, fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              Padding (
+                                padding: const EdgeInsets.only(left: Sizes.p24, right: Sizes.p24),
+                                child:
+                                SizedBox(
+                                  height: 40,
+                                  width: 360,
+                                  child: TextField(
+                                    obscureText: _isObscure,
+                                    style: GoogleFonts.inter(fontWeight: FontWeight.normal, fontSize: 14, color: ColorStorage.black),
+                                    decoration: InputDecoration(
+                                      labelStyle: GoogleFonts.inter(fontWeight: FontWeight.normal, fontSize: 14, color: ColorStorage.black),
+                                      hintStyle: GoogleFonts.inter(fontWeight: FontWeight.normal, fontSize: 14, color: ColorStorage.gray),
+                                      hintText: TextStorage.phConfirmPassword,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(color: ColorStorage.border),
+                                        borderRadius: BorderRadius.circular(8.0),
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderSide: const BorderSide(color: ColorStorage.border),
+                                        borderRadius: BorderRadius.circular(8.0),
+                                      ),
+                                      contentPadding: const EdgeInsets.only(
+                                          left: Sizes.p16, top: Sizes.p10, bottom: Sizes.p10),
+                                      suffixIcon: InkWell(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(Sizes.p10),
+                                          child: CustomText(value: _isObscure ? TextStorage.lblSee : TextStorage.lblClose),
+                                        ),
+                                        onTap: () {
+                                          setState(() {
+                                            _isObscure = !_isObscure;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    onChanged: (val) => setState(() {
+                                      confirmPassword = val;
+                                    }),
                                     onSubmitted: (val) => {
-                                      _onLoginClicked(context)
+                                      _onRegisterClicked(context)
                                     },
                                   ),
                                 ),
@@ -213,7 +268,7 @@ class _LoginScene extends State<LoginScene> {
                                         child:
                                         TextButton(
                                             onPressed: () {
-                                              _onLoginClicked(context);
+                                              _onRegisterClicked(context);
                                             },
                                             style: TextButton.styleFrom(
                                               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
@@ -222,7 +277,7 @@ class _LoginScene extends State<LoginScene> {
                                                 borderRadius: BorderRadius.circular(8.0),
                                               ),
                                             ),
-                                            child: const CustomText(value: TextStorage.lblLogin, fontWeight: FontWeight.bold, color: Colors.white)
+                                            child: const CustomText(value: TextStorage.lblRegister, fontWeight: FontWeight.bold, color: Colors.white)
                                         ),
                                       )
                                   ),
@@ -234,27 +289,16 @@ class _LoginScene extends State<LoginScene> {
                                 children: [
                                   InkWell(
                                     child: Text(
-                                      TextStorage.lblNotRegistered,
+                                      TextStorage.lblRegistered,
                                       style: GoogleFonts.inter(fontWeight: FontWeight.normal, fontSize: 14, color: ColorStorage.blue, decoration: TextDecoration.underline),
                                     ),
                                     onTap: () {
-                                      _navigationProvider?.setNavigationItem(NavigationItem.register);
+                                      _navigationProvider?.setNavigationItem(NavigationItem.login);
                                     },
                                   ),
-                                  Space.w4,
-                                  const CustomText(value: "|"),
-                                  Space.w4,
-                                  InkWell(
-                                    child: Text(
-                                      TextStorage.lblForgotPassword,
-                                      style: GoogleFonts.inter(fontWeight: FontWeight.normal, fontSize: 14, color: ColorStorage.blue, decoration: TextDecoration.underline),
-                                    ),
-                                    onTap: () {
-                                      showToast(context, fToast, TextStorage.errorComingSoon);
-                                    },
-                                  )
                                 ],
                               ),
+                              Space.h24,
                             ],
                           ),
                         ),

@@ -12,7 +12,7 @@ void showToast(BuildContext context, FToast fToast, String message) {
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Icon(Icons.check),
+        const Icon(Icons.info),
         const SizedBox(
           width: 12.0,
         ),
