@@ -232,6 +232,17 @@ class _LoginScene extends State<LoginScene> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
+                                  InkWell(
+                                    child: Text(
+                                      TextStorage.lblRegister,
+                                      style: GoogleFonts.inter(fontWeight: FontWeight.normal, fontSize: 14, color: ColorStorage.blue, decoration: TextDecoration.underline),
+                                    ),
+                                    onTap: () {
+                                      showToast(context, fToast, TextStorage.errorComingSoon);
+                                    },
+                                  ),
+                                  Space.w4,
+                                  const CustomText(value: "|"),
                                   Space.w4,
                                   InkWell(
                                     child: Text(

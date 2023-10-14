@@ -18,6 +18,7 @@ class TextStorage {
   static const lblClose = "Tutup";
   static const lblSee = "Lihat";
   static const lblForgotPassword = "Lupa password?";
+  static const lblRegister = "Belum punya akun?";
 
   static const captionExitApp = "Yakin keluar Aplikasi?";
   static const captionSure = "Apakah Anda yakin?";
