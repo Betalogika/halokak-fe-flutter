@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:halokak_app/custom/custom_text_widget.dart';
+import 'package:halokak_app/custom/space.dart';
 import 'package:halokak_app/custom/toast.dart';
 import 'package:halokak_app/data/local/assets_storage.dart';
 import 'package:halokak_app/data/local/color_storage.dart';
@@ -42,8 +44,18 @@ class _HomeScene extends State<HomeScene> {
     );
   }
 
+  void logout() {
+    DialogBuilder(context).showLoadingIndicator("");
+    if (context.mounted) {
+      context.read<AuthProvider>().setUnauthenticated();
+      DialogBuilder(context).hideOpenDialog();
+    }
+  }
+
   Container _homeHorizontal(BuildContext context) {
     var isAuthenticated = context.select<AuthProvider, bool>((value) => value.isAuthenticated);
+    var name = context.select<AuthProvider, String>((value) => value.user?.name ?? TextStorage.lblAnonimUser);
+    var photo = context.select<AuthProvider, String>((value) => '');
     FToast fToast = FToast().init(context);
     return Container(
       decoration: const BoxDecoration(color: ColorStorage.bgDefault),
@@ -58,51 +70,53 @@ class _HomeScene extends State<HomeScene> {
             child: Row(
               children: [
                 Image.asset("assets/ill_icon.jpg"),
-                const SizedBox(width: 16,),
+                Space.w16,
                 Image.asset("assets/ill_logo.jpg"),
-                const SizedBox(width: 16,),
+                Space.w16,
                 InkWell(
                   onTap: () {
-                    showToast(context, fToast, "Segera Hadir");
+                    showToast(context, fToast, TextStorage.errorComingSoon);
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(10.0),
-                    child: Text('Beranda', style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),),
+                    child: CustomText(value: TextStorage.lblHome, fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500)
                   ),
                 ),
-                const SizedBox(width: 16,),
+                !isAuthenticated ? Space.empty :
+                Space.w16,
+                !isAuthenticated ? Space.empty :
                 InkWell(
                   onTap: () {
-                    showToast(context, fToast, "Segera Hadir");
+                    showToast(context, fToast, TextStorage.errorComingSoon);
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(10.0),
-                    child: Text('Riwayat', style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),),
+                    child: CustomText(value: TextStorage.lblHistory, fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500)
                   ),
                 ),
-                const SizedBox(width: 16,),
+                Space.w16,
                 InkWell(
                   onTap: () {
-                    showToast(context, fToast, "Segera Hadir");
+                    showToast(context, fToast, TextStorage.errorComingSoon);
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(10.0),
-                    child: Text('Artikel', style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),),
+                    child: CustomText(value: TextStorage.lblArticle, fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500)
                   ),
                 ),
-                const SizedBox(width: 16,),
+                Space.w20,
                 InkWell(
                   onTap: () {
-                    showToast(context, fToast, "Segera Hadir");
+                    showToast(context, fToast, TextStorage.errorComingSoon);
                   },
                   child: Container(
                     decoration: BoxDecoration(color: ColorStorage.orange, borderRadius: BorderRadius.circular(10)),
                     padding: const EdgeInsets.only(top: 4.0, bottom: 4.0, left: 10.0, right: 10.0),
-                    child: const Text('Aplikasi', style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500)),
+                    child: const CustomText(value: TextStorage.lblApplication, fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500)
                   ),
                 ),
-                const Expanded(child: SizedBox(),),
-                isAuthenticated ? const SizedBox() :
+                const Expanded(child: Space.empty,),
+                isAuthenticated ? Space.empty :
                 InkWell(
                   onTap: () {
                     context.read<NavigationProvider>().setNavigationItem(NavigationItem.login);
@@ -112,24 +126,60 @@ class _HomeScene extends State<HomeScene> {
                     alignment: Alignment.center,
                     decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), border: Border.all(color: ColorStorage.blue, width: 1.0)),
                     padding: const EdgeInsets.only(top: 4.0, bottom: 4.0, left: 30.0, right: 30.0),
-                    child: const Text('Login', style: TextStyle(fontSize: 20, color: ColorStorage.blue, fontWeight: FontWeight.w500)),
+                    child: const CustomText(value: TextStorage.lblLogin, fontSize: 16, color: ColorStorage.blue, fontWeight: FontWeight.w500)
                   ),
                 ),
                 !isAuthenticated ? const SizedBox() :
-                InkWell(
-                  onTap: () async {
-                    DialogBuilder(context).showLoadingIndicator("");
-                    if (context.mounted) {
-                      context.read<AuthProvider>().setUnauthenticated();
-                      DialogBuilder(context).hideOpenDialog();
-                    }
-                  },
-                  child: Container(
+                Container(
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), border: Border.all(color: ColorStorage.blue, width: 1.0)),
-                    padding: const EdgeInsets.only(top: 4.0, bottom: 4.0, left: 30.0, right: 30.0),
-                    child: const Text(TextStorage.lblLogout, style: TextStyle(fontSize: 20, color: ColorStorage.blue, fontWeight: FontWeight.w500)),
-                  ),
+                    child: Row(
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              showToast(context, fToast, TextStorage.errorComingSoon);
+                            },
+                            icon: const Icon(Icons.notifications_outlined, color: ColorStorage.blue,),
+                        ),
+                        Space.w8,
+                        CustomText(value: 'Halo, $name', fontSize: 20, color: ColorStorage.blue, fontWeight: FontWeight.w500),
+                        Space.w8,
+                        photo.isNotEmpty == true ? CircleAvatar(
+                          backgroundColor: ColorStorage.gray,
+                          backgroundImage: (photo.isNotEmpty == true) ? NetworkImage(photo) : null,
+                          radius: 15,
+                        ) : const Icon(Icons.account_circle_outlined, color: ColorStorage.blue,),
+                        PopupMenuButton(
+                          onSelected: (value) => {
+                            if (value == 1) { logout() }
+                            else { showToast(context, fToast, TextStorage.errorComingSoon) }
+                          },
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          itemBuilder: (context) => [
+                            const PopupMenuItem(
+                                value: 0,
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(Icons.account_circle_outlined, color: ColorStorage.blue,),
+                                    Space.w12,
+                                    CustomText(value: TextStorage.lblProfile)
+                                  ],
+                                )),
+                            const PopupMenuItem(
+                                value: 1,
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(Icons.logout, color: ColorStorage.blue,),
+                                    Space.w12,
+                                    CustomText(value: TextStorage.lblLogout)
+                                  ],
+                                )),
+                          ],
+                          icon: const Icon(Icons.keyboard_arrow_down, color: ColorStorage.blue,),
+                        ),
+                      ],
+                    )
                 ),
               ],
             ),
@@ -139,85 +189,32 @@ class _HomeScene extends State<HomeScene> {
             margin: const EdgeInsets.only(left: 80.0, right: 80.0, top: 70.0),
             child: Row(
               children: [
-                Expanded(child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: const [
-                        Text('Mentoring', style: TextStyle(fontSize: 40, color: ColorStorage.blue, fontWeight: FontWeight.bold)),
-                        SizedBox(width: 4,),
-                        Text('Jadi Lebih', style: TextStyle(fontSize: 40, color: Colors.black, fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                    Row(
-                      children: const [
-                        Text('Mudah', style: TextStyle(fontSize: 40, color: ColorStorage.orange, fontWeight: FontWeight.bold)),
-                        SizedBox(width: 4,),
-                        Text('dan', style: TextStyle(fontSize: 40, color: Colors.black, fontWeight: FontWeight.bold)),
-                        SizedBox(width: 4,),
-                        Text('Cepat', style: TextStyle(fontSize: 40, color: ColorStorage.red, fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                    const SizedBox(height: 30,),
-                    const Text('Hubungi mentor, Konsul terkait pekerjaan, Update seputar pekerjaan semua hanya dengan Halo Kak', style: TextStyle(fontSize: 20, color: ColorStorage.gray, fontWeight: FontWeight.w400)),
-                    const SizedBox(height: 40,),
-                    Row(
+                const Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        InkWell(
-                          onTap: () {
-                            showToast(context, fToast, "Segera Hadir");
-                          },
-                          child: Container(
-                            width: 170,
-                            height: 98,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), border: Border.all(color: ColorStorage.blue, width: 1.0)),
-                            child: const Text('', style: TextStyle(fontSize: 20, color: ColorStorage.blue, fontWeight: FontWeight.w500)),
-                          ),
+                        Row(
+                          children: [
+                            CustomText(value: 'Mentoring', fontSize: 40, color: ColorStorage.blue, fontWeight: FontWeight.bold,),
+                            Space.w4,
+                            CustomText(value: 'Jadi Lebih', fontSize: 40, color: Colors.black, fontWeight: FontWeight.bold,),
+                          ],
                         ),
-                        const SizedBox(width: 20,),
-                        InkWell(
-                          onTap: () {
-                            showToast(context, fToast, "Segera Hadir");
-                          },
-                          child: Container(
-                            width: 170,
-                            height: 98,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), border: Border.all(color: ColorStorage.blue, width: 1.0)),
-                            child: const Text('', style: TextStyle(fontSize: 20, color: ColorStorage.blue, fontWeight: FontWeight.w500)),
-                          ),
+                        Row(
+                          children: [
+                            CustomText(value: 'Mudah', fontSize: 40, color: ColorStorage.orange, fontWeight: FontWeight.bold,),
+                            Space.w4,
+                            CustomText(value: 'dan', fontSize: 40, color: Colors.black, fontWeight: FontWeight.bold,),
+                            Space.w4,
+                            CustomText(value: 'Cepat', fontSize: 40, color: ColorStorage.red, fontWeight: FontWeight.bold,),
+                          ],
                         ),
-                        const SizedBox(width: 20,),
-                        InkWell(
-                          onTap: () {
-                            showToast(context, fToast, "Segera Hadir");
-                          },
-                          child: Container(
-                            width: 170,
-                            height: 98,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), border: Border.all(color: ColorStorage.blue, width: 1.0)),
-                            child: const Text('', style: TextStyle(fontSize: 20, color: ColorStorage.blue, fontWeight: FontWeight.w500)),
-                          ),
-                        ),
-                        const SizedBox(width: 20,),
-                        InkWell(
-                          onTap: () {
-                            showToast(context, fToast, "Segera Hadir");
-                          },
-                          child: Container(
-                            width: 170,
-                            height: 98,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), border: Border.all(color: ColorStorage.blue, width: 1.0)),
-                            child: const Text('', style: TextStyle(fontSize: 20, color: ColorStorage.blue, fontWeight: FontWeight.w500)),
-                          ),
-                        ),
+                        Space.h32,
+                        CustomText(value: TextStorage.captionHeaderHome, fontSize: 20, color: ColorStorage.gray, fontWeight: FontWeight.w400, lines: 3,),
+                        Space.h32
                       ],
                     )
-                  ],
-                )),
+                ),
                 Container(
                   margin: const EdgeInsets.only(top: 10.0, bottom: 10),
                   child: ClipRRect(
