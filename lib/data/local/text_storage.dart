@@ -30,6 +30,8 @@ class TextStorage {
   static const lblHistory = "Riwayat";
   static const lblArticle = "Artikel";
   static const lblApplication = "Aplikasi";
+  static const lblAnonimUser = "Rekan Pengguna";
+  static const lblProfile = "Profil";
 
   static const captionExitApp = "Yakin keluar Aplikasi?";
   static const captionSure = "Apakah Anda yakin?";
@@ -43,7 +45,7 @@ class TextStorage {
   static const errorUnauthenticated = "Autentikasi gagal silakan login kembali.";
   static const errorLoginConnectionTimeout = "Maaf, tidak dapat melakukan login karena koneksi internet tidak tersedia.";
   static const errorLoginRequestTimeout = "Login gagal. Koneksi time out. Coba lagi atau periksa koneksi Anda.";
-  static const errorComingSoon = "Sedang Dikembangkan";
+  static const errorComingSoon = "Segera Hadir";
   static const errorMandatoryData = "Silakan isi semua isian wajib terlebih dahulu";
   static const errorConfirmPassword = "Konfirmasi password tidak sama dengan isian password";
 }

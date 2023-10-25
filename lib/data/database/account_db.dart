@@ -15,7 +15,7 @@ class AccountDB extends BaseDB {
   }
 
   void saveUser(Account data) async {
-    box?.put(data.id, data);
+    box?.put(data.id.toString(), data);
   }
 
   Account? getUser(String key) {

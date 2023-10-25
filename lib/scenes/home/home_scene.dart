@@ -44,8 +44,18 @@ class _HomeScene extends State<HomeScene> {
     );
   }
 
+  void logout() {
+    DialogBuilder(context).showLoadingIndicator("");
+    if (context.mounted) {
+      context.read<AuthProvider>().setUnauthenticated();
+      DialogBuilder(context).hideOpenDialog();
+    }
+  }
+
   Container _homeHorizontal(BuildContext context) {
     var isAuthenticated = context.select<AuthProvider, bool>((value) => value.isAuthenticated);
+    var name = context.select<AuthProvider, String>((value) => value.user?.name ?? TextStorage.lblAnonimUser);
+    var photo = context.select<AuthProvider, String>((value) => '');
     FToast fToast = FToast().init(context);
     return Container(
       decoration: const BoxDecoration(color: ColorStorage.bgDefault),
@@ -65,7 +75,7 @@ class _HomeScene extends State<HomeScene> {
                 Space.w16,
                 InkWell(
                   onTap: () {
-                    showToast(context, fToast, "Segera Hadir");
+                    showToast(context, fToast, TextStorage.errorComingSoon);
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(10.0),
@@ -77,7 +87,7 @@ class _HomeScene extends State<HomeScene> {
                 !isAuthenticated ? Space.empty :
                 InkWell(
                   onTap: () {
-                    showToast(context, fToast, "Segera Hadir");
+                    showToast(context, fToast, TextStorage.errorComingSoon);
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(10.0),
@@ -87,7 +97,7 @@ class _HomeScene extends State<HomeScene> {
                 Space.w16,
                 InkWell(
                   onTap: () {
-                    showToast(context, fToast, "Segera Hadir");
+                    showToast(context, fToast, TextStorage.errorComingSoon);
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(10.0),
@@ -97,7 +107,7 @@ class _HomeScene extends State<HomeScene> {
                 Space.w20,
                 InkWell(
                   onTap: () {
-                    showToast(context, fToast, "Segera Hadir");
+                    showToast(context, fToast, TextStorage.errorComingSoon);
                   },
                   child: Container(
                     decoration: BoxDecoration(color: ColorStorage.orange, borderRadius: BorderRadius.circular(10)),
@@ -120,20 +130,56 @@ class _HomeScene extends State<HomeScene> {
                   ),
                 ),
                 !isAuthenticated ? const SizedBox() :
-                InkWell(
-                  onTap: () async {
-                    DialogBuilder(context).showLoadingIndicator("");
-                    if (context.mounted) {
-                      context.read<AuthProvider>().setUnauthenticated();
-                      DialogBuilder(context).hideOpenDialog();
-                    }
-                  },
-                  child: Container(
+                Container(
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), border: Border.all(color: ColorStorage.blue, width: 1.0)),
-                    padding: const EdgeInsets.only(top: 4.0, bottom: 4.0, left: 30.0, right: 30.0),
-                      child: const CustomText(value: TextStorage.lblLogout, fontSize: 16, color: ColorStorage.blue, fontWeight: FontWeight.w500)
-                  ),
+                    child: Row(
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              showToast(context, fToast, TextStorage.errorComingSoon);
+                            },
+                            icon: const Icon(Icons.notifications_outlined, color: ColorStorage.blue,),
+                        ),
+                        Space.w8,
+                        CustomText(value: 'Halo, $name', fontSize: 20, color: ColorStorage.blue, fontWeight: FontWeight.w500),
+                        Space.w8,
+                        photo.isNotEmpty == true ? CircleAvatar(
+                          backgroundColor: ColorStorage.gray,
+                          backgroundImage: (photo.isNotEmpty == true) ? NetworkImage(photo) : null,
+                          radius: 15,
+                        ) : const Icon(Icons.account_circle_outlined, color: ColorStorage.blue,),
+                        PopupMenuButton(
+                          onSelected: (value) => {
+                            if (value == 1) { logout() }
+                            else { showToast(context, fToast, TextStorage.errorComingSoon) }
+                          },
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          itemBuilder: (context) => [
+                            const PopupMenuItem(
+                                value: 0,
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(Icons.account_circle_outlined, color: ColorStorage.blue,),
+                                    Space.w12,
+                                    CustomText(value: TextStorage.lblProfile)
+                                  ],
+                                )),
+                            const PopupMenuItem(
+                                value: 1,
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(Icons.logout, color: ColorStorage.blue,),
+                                    Space.w12,
+                                    CustomText(value: TextStorage.lblLogout)
+                                  ],
+                                )),
+                          ],
+                          icon: const Icon(Icons.keyboard_arrow_down, color: ColorStorage.blue,),
+                        ),
+                      ],
+                    )
                 ),
               ],
             ),
