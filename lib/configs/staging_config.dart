@@ -9,7 +9,7 @@ class StagingConfig implements BaseConfig {
   String get baseLsUrl => "staging_ls_";
 
   @override
-  String get baseApiUrl => "https://url_staging";
+  String get baseApiUrl => "https://dev-api-halokak.betalogika.tech/api/v1";
 
   @override
   bool get reportErrors => true;

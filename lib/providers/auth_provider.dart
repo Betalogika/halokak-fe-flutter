@@ -40,9 +40,13 @@ class AuthProvider extends ChangeNotifier {
   }
 
   void setAuthenticated(LoginResponse data) {
-    token = data.token ?? "";
+    token = data.data?.token ?? "";
     userStorage.addToken(token);
-    userStorage.addCurrentUserId(data.uid ?? "");
+    userStorage.addCurrentUserId(data.data?.id.toString() ?? "");
+    user = data.data;
+    if (data.data != null) {
+      userDB.saveUser(data.data!);
+    }
     notifyListeners();
   }
 

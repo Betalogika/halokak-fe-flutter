@@ -42,8 +42,8 @@ class _LoginScene extends State<LoginScene> {
     FToast fToast = FToast().init(context);
     DialogBuilder(context).showLoadingIndicator("");
     try {
-      var req = await _authApi.loginFirebase(email, password);
-      if (req.token?.isNotEmpty == true) {
+      var req = await _authApi.login(email, password);
+      if (req.data?.token?.isNotEmpty == true) {
         authProvider?.setAuthenticated(req);
         _navigationProvider?.setNavigationItem(NavigationItem.home);
       } else {

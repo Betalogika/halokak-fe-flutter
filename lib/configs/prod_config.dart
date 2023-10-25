@@ -9,7 +9,7 @@ class ProdConfig implements BaseConfig {
   String get baseLsUrl => "prod_ls_";
 
   @override
-  String get baseApiUrl => "https://url_production";
+  String get baseApiUrl => "https://dev-api-halokak.betalogika.tech/api/v1";
 
   @override
   bool get reportErrors => true;
