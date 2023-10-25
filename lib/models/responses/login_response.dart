@@ -1,18 +1,15 @@
-class LoginResponse {
-  String? token;
-  String? email;
-  String? name;
-  String? uid;
-  String? message;
+import '../db/account_model.dart';
 
-  LoginResponse({ this.token, this.email, this.name, this.uid });
+class LoginResponse {
+  String? message;
+  Account? data;
+
+  LoginResponse({ this.message, this.data });
 
   factory LoginResponse.from(Map<String, dynamic> json) {
     return LoginResponse(
-      token: json['token'],
-      email: json['email'],
-      name: json['name'],
-      uid: json['uid'],
+      message: json['message'],
+      data: json['data'] != null ? Account.from(json['data']) : null,
     );
   }
 }

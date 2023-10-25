@@ -24,6 +24,7 @@ class RegisterScene extends StatefulWidget {
 
 class _RegisterScene extends State<RegisterScene> {
   final AuthAPI _authApi = AuthAPI();
+  String name = "";
   String email = "";
   String password = "";
   String confirmPassword = "";
@@ -41,7 +42,7 @@ class _RegisterScene extends State<RegisterScene> {
 
   void _onRegisterClicked(BuildContext context) async {
     FToast fToast = FToast().init(context);
-    if (email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
+    if (email.isEmpty || password.isEmpty || confirmPassword.isEmpty || name.isEmpty) {
       showToast(context, fToast, TextStorage.errorMandatoryData);
       return;
     }
@@ -51,14 +52,10 @@ class _RegisterScene extends State<RegisterScene> {
     }
     DialogBuilder(context).showLoadingIndicator("");
     try {
-      var req = await _authApi.registerFirebase(email, password);
-      if (req.token?.isNotEmpty == true) {
-        authProvider?.setAuthenticated(req);
-        _navigationProvider?.setNavigationItem(NavigationItem.home);
-      } else {
-        if (!mounted) return;
-        showToast(context, fToast, req.message.toString());
-      }
+      var req = await _authApi.register(name, email, password, confirmPassword);
+      if (!mounted) return;
+      showToast(context, fToast, req.message.toString());
+      _navigationProvider?.setNavigationItem(NavigationItem.home);
     } on Exception catch (e) {
       showToast(context, fToast, e.toString());
     }
@@ -125,6 +122,41 @@ class _RegisterScene extends State<RegisterScene> {
                               ),
                               const Padding(
                                 padding: EdgeInsets.only(left: Sizes.p24, bottom: Sizes.p12),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: CustomText(value: TextStorage.titleUsername, fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: Sizes.p24, right: Sizes.p24),
+                                child:
+                                SizedBox(
+                                  height: 40,
+                                  width: 360,
+                                  child: TextField(
+                                    style: GoogleFonts.inter(fontWeight: FontWeight.normal, fontSize: 14, color: ColorStorage.black),
+                                    decoration: InputDecoration(
+                                        labelStyle: GoogleFonts.inter(fontWeight: FontWeight.normal, fontSize: 14, color: ColorStorage.black),
+                                        hintStyle: GoogleFonts.inter(fontWeight: FontWeight.normal, fontSize: 14, color: ColorStorage.gray),
+                                        hintText: TextStorage.phUsername,
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(color: ColorStorage.border),
+                                          borderRadius: BorderRadius.circular(8.0),
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderSide: const BorderSide(color: ColorStorage.border),
+                                          borderRadius: BorderRadius.circular(8.0),
+                                        ),
+                                        contentPadding: const EdgeInsets.only(left: Sizes.p16, top: Sizes.p10, bottom: Sizes.p10)
+                                    ),
+                                    onChanged: (val) => setState(() {
+                                      name = val;
+                                    }),
+                                  ),
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.only(left: Sizes.p24, top: Sizes.p24, bottom: Sizes.p12),
                                 child: Align(
                                   alignment: Alignment.centerLeft,
                                   child: CustomText(value: TextStorage.titleEmail, fontWeight: FontWeight.bold),

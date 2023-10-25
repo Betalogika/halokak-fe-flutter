@@ -3,11 +3,13 @@ class TextStorage {
   static const titleHome = "Beranda";
   static const titleAuth = "Masuk ke akun Anda";
   static const titleRegister = "Daftarkan akun Anda";
-  static const titleEmail = "Email / Username ";
+  static const titleUsername = "Username";
+  static const titleEmail = "Email";
   static const titlePassword = "Password";
   static const titleConfirmPassword = "Konfirmasi Password";
 
-  static const phEmail = "Masukkan email/username";
+  static const phUsername = "Masukkan username";
+  static const phEmail = "Masukkan email";
   static const phPassword = "Masukkan password";
   static const phConfirmPassword = "Masukkan ulang password";
 
