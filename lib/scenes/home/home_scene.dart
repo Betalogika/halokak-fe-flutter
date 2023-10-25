@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:halokak_app/custom/custom_text_widget.dart';
+import 'package:halokak_app/custom/space.dart';
 import 'package:halokak_app/custom/toast.dart';
 import 'package:halokak_app/data/local/assets_storage.dart';
 import 'package:halokak_app/data/local/color_storage.dart';
@@ -139,85 +141,32 @@ class _HomeScene extends State<HomeScene> {
             margin: const EdgeInsets.only(left: 80.0, right: 80.0, top: 70.0),
             child: Row(
               children: [
-                Expanded(child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: const [
-                        Text('Mentoring', style: TextStyle(fontSize: 40, color: ColorStorage.blue, fontWeight: FontWeight.bold)),
-                        SizedBox(width: 4,),
-                        Text('Jadi Lebih', style: TextStyle(fontSize: 40, color: Colors.black, fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                    Row(
-                      children: const [
-                        Text('Mudah', style: TextStyle(fontSize: 40, color: ColorStorage.orange, fontWeight: FontWeight.bold)),
-                        SizedBox(width: 4,),
-                        Text('dan', style: TextStyle(fontSize: 40, color: Colors.black, fontWeight: FontWeight.bold)),
-                        SizedBox(width: 4,),
-                        Text('Cepat', style: TextStyle(fontSize: 40, color: ColorStorage.red, fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                    const SizedBox(height: 30,),
-                    const Text('Hubungi mentor, Konsul terkait pekerjaan, Update seputar pekerjaan semua hanya dengan Halo Kak', style: TextStyle(fontSize: 20, color: ColorStorage.gray, fontWeight: FontWeight.w400)),
-                    const SizedBox(height: 40,),
-                    Row(
+                const Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        InkWell(
-                          onTap: () {
-                            showToast(context, fToast, "Segera Hadir");
-                          },
-                          child: Container(
-                            width: 170,
-                            height: 98,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), border: Border.all(color: ColorStorage.blue, width: 1.0)),
-                            child: const Text('', style: TextStyle(fontSize: 20, color: ColorStorage.blue, fontWeight: FontWeight.w500)),
-                          ),
+                        Row(
+                          children: [
+                            CustomText(value: 'Mentoring', fontSize: 40, color: ColorStorage.blue, fontWeight: FontWeight.bold,),
+                            Space.w4,
+                            CustomText(value: 'Jadi Lebih', fontSize: 40, color: Colors.black, fontWeight: FontWeight.bold,),
+                          ],
                         ),
-                        const SizedBox(width: 20,),
-                        InkWell(
-                          onTap: () {
-                            showToast(context, fToast, "Segera Hadir");
-                          },
-                          child: Container(
-                            width: 170,
-                            height: 98,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), border: Border.all(color: ColorStorage.blue, width: 1.0)),
-                            child: const Text('', style: TextStyle(fontSize: 20, color: ColorStorage.blue, fontWeight: FontWeight.w500)),
-                          ),
+                        Row(
+                          children: [
+                            CustomText(value: 'Mudah', fontSize: 40, color: ColorStorage.orange, fontWeight: FontWeight.bold,),
+                            Space.w4,
+                            CustomText(value: 'dan', fontSize: 40, color: Colors.black, fontWeight: FontWeight.bold,),
+                            Space.w4,
+                            CustomText(value: 'Cepat', fontSize: 40, color: ColorStorage.red, fontWeight: FontWeight.bold,),
+                          ],
                         ),
-                        const SizedBox(width: 20,),
-                        InkWell(
-                          onTap: () {
-                            showToast(context, fToast, "Segera Hadir");
-                          },
-                          child: Container(
-                            width: 170,
-                            height: 98,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), border: Border.all(color: ColorStorage.blue, width: 1.0)),
-                            child: const Text('', style: TextStyle(fontSize: 20, color: ColorStorage.blue, fontWeight: FontWeight.w500)),
-                          ),
-                        ),
-                        const SizedBox(width: 20,),
-                        InkWell(
-                          onTap: () {
-                            showToast(context, fToast, "Segera Hadir");
-                          },
-                          child: Container(
-                            width: 170,
-                            height: 98,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), border: Border.all(color: ColorStorage.blue, width: 1.0)),
-                            child: const Text('', style: TextStyle(fontSize: 20, color: ColorStorage.blue, fontWeight: FontWeight.w500)),
-                          ),
-                        ),
+                        Space.h32,
+                        CustomText(value: TextStorage.captionHeaderHome, fontSize: 20, color: ColorStorage.gray, fontWeight: FontWeight.w400, lines: 3,),
+                        Space.h32
                       ],
                     )
-                  ],
-                )),
+                ),
                 Container(
                   margin: const EdgeInsets.only(top: 10.0, bottom: 10),
                   child: ClipRRect(

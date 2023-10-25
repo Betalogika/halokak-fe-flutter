@@ -29,6 +29,7 @@ class TextStorage {
 
   static const captionExitApp = "Yakin keluar Aplikasi?";
   static const captionSure = "Apakah Anda yakin?";
+  static const captionHeaderHome = "Hubungi mentor, Konsul terkait pekerjaan, Update seputar pekerjaan semua hanya dengan Halo Kak";
 
   static const errorSystem= "Maaf terjadi kesalahan sistem, silakan coba lagi";
   static const errorConnectionTimeout = "Maaf, tidak dapat memuat data karena koneksi internet tidak tersedia.";
