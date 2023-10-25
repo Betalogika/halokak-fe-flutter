@@ -26,6 +26,10 @@ class TextStorage {
   static const lblForgotPassword = "Lupa password?";
   static const lblNotRegistered = "Belum punya akun?";
   static const lblRegistered = "Sudah punya akun?";
+  static const lblHome = "Beranda";
+  static const lblHistory = "Riwayat";
+  static const lblArticle = "Artikel";
+  static const lblApplication = "Aplikasi";
 
   static const captionExitApp = "Yakin keluar Aplikasi?";
   static const captionSure = "Apakah Anda yakin?";

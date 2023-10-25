@@ -60,39 +60,41 @@ class _HomeScene extends State<HomeScene> {
             child: Row(
               children: [
                 Image.asset("assets/ill_icon.jpg"),
-                const SizedBox(width: 16,),
+                Space.w16,
                 Image.asset("assets/ill_logo.jpg"),
-                const SizedBox(width: 16,),
+                Space.w16,
                 InkWell(
                   onTap: () {
                     showToast(context, fToast, "Segera Hadir");
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(10.0),
-                    child: Text('Beranda', style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),),
+                    child: CustomText(value: TextStorage.lblHome, fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500)
                   ),
                 ),
-                const SizedBox(width: 16,),
+                !isAuthenticated ? Space.empty :
+                Space.w16,
+                !isAuthenticated ? Space.empty :
                 InkWell(
                   onTap: () {
                     showToast(context, fToast, "Segera Hadir");
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(10.0),
-                    child: Text('Riwayat', style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),),
+                    child: CustomText(value: TextStorage.lblHistory, fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500)
                   ),
                 ),
-                const SizedBox(width: 16,),
+                Space.w16,
                 InkWell(
                   onTap: () {
                     showToast(context, fToast, "Segera Hadir");
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(10.0),
-                    child: Text('Artikel', style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),),
+                    child: CustomText(value: TextStorage.lblArticle, fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500)
                   ),
                 ),
-                const SizedBox(width: 16,),
+                Space.w20,
                 InkWell(
                   onTap: () {
                     showToast(context, fToast, "Segera Hadir");
@@ -100,11 +102,11 @@ class _HomeScene extends State<HomeScene> {
                   child: Container(
                     decoration: BoxDecoration(color: ColorStorage.orange, borderRadius: BorderRadius.circular(10)),
                     padding: const EdgeInsets.only(top: 4.0, bottom: 4.0, left: 10.0, right: 10.0),
-                    child: const Text('Aplikasi', style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500)),
+                    child: const CustomText(value: TextStorage.lblApplication, fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500)
                   ),
                 ),
-                const Expanded(child: SizedBox(),),
-                isAuthenticated ? const SizedBox() :
+                const Expanded(child: Space.empty,),
+                isAuthenticated ? Space.empty :
                 InkWell(
                   onTap: () {
                     context.read<NavigationProvider>().setNavigationItem(NavigationItem.login);
@@ -114,7 +116,7 @@ class _HomeScene extends State<HomeScene> {
                     alignment: Alignment.center,
                     decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), border: Border.all(color: ColorStorage.blue, width: 1.0)),
                     padding: const EdgeInsets.only(top: 4.0, bottom: 4.0, left: 30.0, right: 30.0),
-                    child: const Text('Login', style: TextStyle(fontSize: 20, color: ColorStorage.blue, fontWeight: FontWeight.w500)),
+                    child: const CustomText(value: TextStorage.lblLogin, fontSize: 16, color: ColorStorage.blue, fontWeight: FontWeight.w500)
                   ),
                 ),
                 !isAuthenticated ? const SizedBox() :
@@ -130,7 +132,7 @@ class _HomeScene extends State<HomeScene> {
                     alignment: Alignment.center,
                     decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), border: Border.all(color: ColorStorage.blue, width: 1.0)),
                     padding: const EdgeInsets.only(top: 4.0, bottom: 4.0, left: 30.0, right: 30.0),
-                    child: const Text(TextStorage.lblLogout, style: TextStyle(fontSize: 20, color: ColorStorage.blue, fontWeight: FontWeight.w500)),
+                      child: const CustomText(value: TextStorage.lblLogout, fontSize: 16, color: ColorStorage.blue, fontWeight: FontWeight.w500)
                   ),
                 ),
               ],
