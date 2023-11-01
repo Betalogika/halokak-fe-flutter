@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -64,7 +62,6 @@ class _LoginScene extends State<LoginScene> {
   @override
   Widget build(BuildContext context) {
     String appVersionName = context.select<AuthProvider, String>((value) => value.appVersionName);
-    FToast fToast = FToast().init(context);
     return WillPopScope(
         onWillPop: () => showExitPopup(context),
         child: Scaffold(

@@ -320,10 +320,7 @@ class _RegisterScene extends State<RegisterScene> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   InkWell(
-                                    child: Text(
-                                      TextStorage.lblRegistered,
-                                      style: GoogleFonts.inter(fontWeight: FontWeight.normal, fontSize: 14, color: ColorStorage.blue, decoration: TextDecoration.underline),
-                                    ),
+                                    child: const CustomText(value: TextStorage.lblRegistered, color: ColorStorage.blue),
                                     onTap: () {
                                       _navigationProvider?.setNavigationItem(NavigationItem.login);
                                     },
