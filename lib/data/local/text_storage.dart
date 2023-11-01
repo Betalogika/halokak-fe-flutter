@@ -5,6 +5,7 @@ class TextStorage {
   static const titleRegister = "Daftarkan akun Anda";
   static const titleUsername = "Username";
   static const titleEmail = "Email";
+  static const titleEmailUsername = "Email / Username";
   static const titlePassword = "Password";
   static const titleConfirmPassword = "Konfirmasi Password";
 

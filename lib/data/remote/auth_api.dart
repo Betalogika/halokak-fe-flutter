@@ -8,7 +8,7 @@ import 'package:halokak_app/models/responses/login_response.dart';
 class AuthAPI extends BaseAPI {
 
   Future<LoginResponse> login(String email, String password) async {
-    var body = jsonEncode({'email': email, 'password': password});
+    var body = jsonEncode({'umail': email, 'password': password});
     var response = await requestResponse(RM.post, Uri.parse(super.loginPath), headers: getHeader(), body: body);
     return LoginResponse.from(response);
   }

@@ -121,7 +121,7 @@ class _LoginScene extends State<LoginScene> {
                                 padding: EdgeInsets.only(left: Sizes.p24, bottom: Sizes.p12),
                                 child: Align(
                                   alignment: Alignment.centerLeft,
-                                  child: CustomText(value: TextStorage.titleEmail, fontWeight: FontWeight.bold),
+                                  child: CustomText(value: TextStorage.titleEmailUsername, fontWeight: FontWeight.bold),
                                 ),
                               ),
                               Padding(
