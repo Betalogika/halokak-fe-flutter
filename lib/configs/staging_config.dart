@@ -12,6 +12,9 @@ class StagingConfig implements BaseConfig {
   String get baseApiUrl => "https://dev-api-halokak.betalogika.tech/api/v1";
 
   @override
+  String get baseExternalUrl => "https://dev-user-bahteramas.betalogika.tech";
+
+  @override
   bool get reportErrors => true;
 
   @override

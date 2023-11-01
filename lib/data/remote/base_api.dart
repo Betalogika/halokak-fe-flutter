@@ -18,11 +18,14 @@ enum RM {
 
 class BaseAPI {
   static String base = Environment().config?.baseApiUrl ?? "";
+  static String baseExternal = Environment().config?.baseExternalUrl ?? "";
 
   static var authService = "$base/user/auth";
   var loginPath = "$authService/login";
   var registerPath = "$authService/register";
   var logoutPath = "$authService/logout";
+
+  var forgotPasswordPagePath = "$baseExternal/forgot/password";
 
   Map<String,String> headers = {
     "Content-Type": "application/json; charset=UTF-8",
