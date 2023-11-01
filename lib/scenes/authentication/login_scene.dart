@@ -6,10 +6,12 @@ import 'package:halokak_app/custom/progress_dialog.dart';
 import 'package:halokak_app/custom/toast.dart';
 import 'package:halokak_app/data/local/text_storage.dart';
 import 'package:halokak_app/data/remote/auth_api.dart';
+import 'package:halokak_app/data/remote/base_api.dart';
 import 'package:halokak_app/models/enum/navigation_enum.dart';
 import 'package:halokak_app/providers/auth_provider.dart';
 import 'package:halokak_app/providers/navigation_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/link.dart';
 
 import '../../custom/custom_text_widget.dart';
 import '../../custom/space.dart';
@@ -60,7 +62,6 @@ class _LoginScene extends State<LoginScene> {
   @override
   Widget build(BuildContext context) {
     String appVersionName = context.select<AuthProvider, String>((value) => value.appVersionName);
-    FToast fToast = FToast().init(context);
     return WillPopScope(
         onWillPop: () => showExitPopup(context),
         child: Scaffold(
@@ -120,7 +121,7 @@ class _LoginScene extends State<LoginScene> {
                                 padding: EdgeInsets.only(left: Sizes.p24, bottom: Sizes.p12),
                                 child: Align(
                                   alignment: Alignment.centerLeft,
-                                  child: CustomText(value: TextStorage.titleEmail, fontWeight: FontWeight.bold),
+                                  child: CustomText(value: TextStorage.titleEmailUsername, fontWeight: FontWeight.bold),
                                 ),
                               ),
                               Padding(
@@ -233,10 +234,7 @@ class _LoginScene extends State<LoginScene> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   InkWell(
-                                    child: Text(
-                                      TextStorage.lblNotRegistered,
-                                      style: GoogleFonts.inter(fontWeight: FontWeight.normal, fontSize: 14, color: ColorStorage.blue, decoration: TextDecoration.underline),
-                                    ),
+                                    child: const CustomText(value: TextStorage.lblNotRegistered, color: ColorStorage.blue),
                                     onTap: () {
                                       _navigationProvider?.setNavigationItem(NavigationItem.register);
                                     },
@@ -244,15 +242,17 @@ class _LoginScene extends State<LoginScene> {
                                   Space.w4,
                                   const CustomText(value: "|"),
                                   Space.w4,
-                                  InkWell(
-                                    child: Text(
-                                      TextStorage.lblForgotPassword,
-                                      style: GoogleFonts.inter(fontWeight: FontWeight.normal, fontSize: 14, color: ColorStorage.blue, decoration: TextDecoration.underline),
-                                    ),
-                                    onTap: () {
-                                      showToast(context, fToast, TextStorage.errorComingSoon);
-                                    },
-                                  )
+                                  Link(
+                                      target: LinkTarget.blank,
+                                      uri: Uri.parse(BaseAPI().forgotPasswordPagePath),
+                                      builder: (context, followLink) => MouseRegion(
+                                          cursor: SystemMouseCursors.click,
+                                          child: GestureDetector(
+                                            onTap: followLink,
+                                            child: const CustomText(value: TextStorage.lblForgotPassword, color: ColorStorage.blue),
+                                          )
+                                      )
+                                  ),
                                 ],
                               ),
                             ],
