@@ -19,11 +19,13 @@ enum RM {
 class BaseAPI {
   static String base = Environment().config?.baseApiUrl ?? "";
   static String baseExternal = Environment().config?.baseExternalUrl ?? "";
+  static String host = Environment().config?.host ?? "";
 
   static var authService = "$base/user/auth";
   var loginPath = "$authService/login";
   var registerPath = "$authService/register";
   var logoutPath = "$authService/logout";
+  var categoryPath = "/kategori";
 
   var forgotPasswordPagePath = "$baseExternal/forgot/password";
 
