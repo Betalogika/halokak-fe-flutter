@@ -5,6 +5,7 @@ import 'package:halokak_app/data/local/color_storage.dart';
 import 'package:halokak_app/data/local/text_storage.dart';
 import 'package:halokak_app/models/enum/navigation_enum.dart';
 import 'package:halokak_app/providers/auth_provider.dart';
+import 'package:halokak_app/providers/home_provider.dart';
 import 'package:halokak_app/providers/navigation_provider.dart';
 import 'package:halokak_app/scenes/authentication/login_scene.dart';
 import 'package:halokak_app/scenes/authentication/register_scene.dart';
@@ -29,6 +30,9 @@ void main() async {
           ),
           ChangeNotifierProvider(
             create: (context) => NavigationProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => HomeProvider(),
           )
         ],
         child: const MyApp(),
