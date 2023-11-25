@@ -22,18 +22,32 @@ class HomeProvider extends BaseProvider {
     },
   ];
 
+  List<Map<String, dynamic>> mentorList = [];
+
   HomeProvider() {
     initData();
   }
 
   void initData() {
     fetchCategoryList();
+    fetchMentorList();
   }
 
   Future<void>? fetchCategoryList() async {
     try {
       var response = await _homeAPI.getCategoryList();
       categoryList = response.data ?? [];
+    } on Exception catch (e) {
+      logData(e.toString());
+    } finally {
+      notifyListeners();
+    }
+  }
+
+  Future<void>? fetchMentorList() async {
+    try {
+      var response = await _homeAPI.getRecommendMentorList();
+      mentorList = response.data ?? [];
     } on Exception catch (e) {
       logData(e.toString());
     } finally {

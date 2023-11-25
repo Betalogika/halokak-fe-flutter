@@ -35,6 +35,7 @@ class TextStorage {
   static const lblProfile = "Profil";
   static const lblChooseBestMentor = "Pilih Mentor Terbaikmu";
   static const lblCategory = "Kategori";
+  static const lblRecommended = "Direkomendasikan";
 
   static const captionExitApp = "Yakin keluar Aplikasi?";
   static const captionSure = "Apakah Anda yakin?";

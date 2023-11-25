@@ -56,6 +56,7 @@ class _HomeScene extends State<HomeScene> {
     var name = context.select<AuthProvider, String>((value) => value.user?.name ?? TextStorage.lblAnonimUser);
     var photo = context.select<AuthProvider, String>((value) => '');
     var categoryList = context.select<HomeProvider, List<Map<String, dynamic>>>((value) => value.categoryList);
+    var mentorList = context.select<HomeProvider, List<Map<String, dynamic>>>((value) => value.mentorList);
     FToast fToast = FToast().init(context);
     return Container(
       decoration: const BoxDecoration(color: ColorStorage.bgDefault),
@@ -245,13 +246,13 @@ class _HomeScene extends State<HomeScene> {
                             CustomText(value: TextStorage.lblChooseBestMentor, fontSize: 34, fontWeight: FontWeight.bold, color: Colors.black,)
                           ],
                         ),
-                        Space.h20,
+                        Space.h32,
                         const Row(
                           children: [
                             CustomText(value: TextStorage.lblCategory, fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
                           ],
                         ),
-                        Space.h32,
+                        Space.h16,
                         Wrap(
                           children: categoryList.map(
                                   (data) =>
@@ -310,68 +311,83 @@ class _HomeScene extends State<HomeScene> {
                                       )
                           ).toList(),
                         ),
-                        Space.h32,
-                        Row(
-                          children: const [
-                            Text('Direkomendasikan', style: TextStyle(fontSize: 24, color: Colors.black, fontWeight: FontWeight.bold)),
+                        Space.h48,
+                        const Row(
+                          children: [
+                            CustomText(value: TextStorage.lblRecommended, fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black,)
                           ],
                         ),
-                        const SizedBox(height: 38,),
-                        Row(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                showToast(context, fToast, "Segera Hadir");
-                              },
-                              child: Container(
-                                width: 170,
-                                height: 98,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), border: Border.all(color: ColorStorage.blue, width: 1.0)),
-                                child: const Text('', style: TextStyle(fontSize: 20, color: ColorStorage.blue, fontWeight: FontWeight.w500)),
-                              ),
-                            ),
-                            const SizedBox(width: 20,),
-                            InkWell(
-                              onTap: () {
-                                showToast(context, fToast, "Segera Hadir");
-                              },
-                              child: Container(
-                                width: 170,
-                                height: 98,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), border: Border.all(color: ColorStorage.blue, width: 1.0)),
-                                child: const Text('', style: TextStyle(fontSize: 20, color: ColorStorage.blue, fontWeight: FontWeight.w500)),
-                              ),
-                            ),
-                            const SizedBox(width: 20,),
-                            InkWell(
-                              onTap: () {
-                                showToast(context, fToast, "Segera Hadir");
-                              },
-                              child: Container(
-                                width: 170,
-                                height: 98,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), border: Border.all(color: ColorStorage.blue, width: 1.0)),
-                                child: const Text('', style: TextStyle(fontSize: 20, color: ColorStorage.blue, fontWeight: FontWeight.w500)),
-                              ),
-                            ),
-                            const SizedBox(width: 20,),
-                            InkWell(
-                              onTap: () {
-                                showToast(context, fToast, "Segera Hadir");
-                              },
-                              child: Container(
-                                width: 170,
-                                height: 98,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), border: Border.all(color: ColorStorage.blue, width: 1.0)),
-                                child: const Text('', style: TextStyle(fontSize: 20, color: ColorStorage.blue, fontWeight: FontWeight.w500)),
-                              ),
-                            ),
-                          ],
-                        )
+                        Space.h16,
+                        Wrap(
+                          children: mentorList.map(
+                                  (data) =>
+                                  InkWell(
+                                    onTap: () {
+                                      showToast(context, fToast, "Segera Hadir");
+                                    },
+                                    child:
+                                    Container(
+                                      margin: const EdgeInsets.only(top: 8.0, right: 20.0, bottom: 8.0),
+                                      padding: const EdgeInsets.only(top: 4.0),
+                                      width: 162,
+                                      height: 100,
+                                      decoration: BoxDecoration(color: Colors.white, borderRadius: const BorderRadius.only(topLeft: Radius.circular(15.0)), border: Border.all(color: ColorStorage.blue, width: 1.0)),
+                                      child: Row(
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              data['photo'] != null ? Image.network(data['photo'], height: 60, width: 60,) :
+                                              const Icon(Icons.account_circle_outlined, color: ColorStorage.blue, size: 60,),
+                                            ],
+                                          ),
+                                          Space.w8,
+                                          Expanded(
+                                              child:
+                                              Column(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Space.h8,
+                                                  CustomText(value: data['nama'] ?? "-", fontWeight: FontWeight.w500),
+                                                  Space.h4,
+                                                  CustomText(value: data['mapel'] ?? "-", fontSize: 10,),
+                                                  Space.h16,
+                                                  Row(
+                                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                                    mainAxisAlignment: MainAxisAlignment.end,
+                                                    children: [
+                                                      Column(
+                                                        mainAxisAlignment: MainAxisAlignment.end,
+                                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                                        children: [
+                                                          Container(
+                                                              height: 36,
+                                                              width: 36,
+                                                              decoration: const BoxDecoration(
+                                                                image: DecorationImage(
+                                                                  image: AssetImage(AssetsStorage.bgSelectCategory),
+                                                                  fit: BoxFit.cover,
+                                                                ),
+                                                              ),
+                                                              child: const Center(
+                                                                child: Icon(Icons.arrow_forward_rounded, color: ColorStorage.red, size: 18,),
+                                                              )
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              )
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                          ).toList(),
+                        ),
                       ],
                     )
                 ),

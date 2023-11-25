@@ -25,7 +25,8 @@ class BaseAPI {
   var loginPath = "$authService/login";
   var registerPath = "$authService/register";
   var logoutPath = "$authService/logout";
-  var categoryPath = "/kategori";
+  var categoryPath = "/api/v1/web/kategori";
+  var recommendMentorPath = "/api/v1/web/rekomendasi";
 
   var forgotPasswordPagePath = "$baseExternal/forgot/password";
 
