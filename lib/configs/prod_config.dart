@@ -15,7 +15,7 @@ class ProdConfig implements BaseConfig {
   String get baseExternalUrl => "https://user-bahteramas-halokak.betalogika.tech";
 
   @override
-  String get host => "api-halokak.betalogika.tech/api/v1";
+  String get host => "api-halokak.betalogika.tech";
 
   @override
   bool get reportErrors => true;

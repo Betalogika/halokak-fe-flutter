@@ -22,6 +22,8 @@ class Space {
   static const h24 = SizedBox(height: Sizes.p24);
   static const h28 = SizedBox(height: Sizes.p28);
   static const h32 = SizedBox(height: Sizes.p32);
+  static const h48 = SizedBox(height: Sizes.p48);
+  static const h64 = SizedBox(height: Sizes.p64);
 }
 
 class Sizes {
@@ -35,5 +37,7 @@ class Sizes {
   static const p24 = 24.0;
   static const p28 = 28.0;
   static const p32 = 32.0;
+  static const p48 = 48.0;
+  static const p64 = 64.0;
   static const border = 1.0;
 }
