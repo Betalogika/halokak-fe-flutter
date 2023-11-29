@@ -5,22 +5,7 @@ import 'base_provider.dart';
 class HomeProvider extends BaseProvider {
   final HomeAPI _homeAPI = HomeAPI();
 
-  List<Map<String, dynamic>> categoryList = [
-    {
-      "nama": "Dokter",
-    },
-    {
-      "nama": "Matematika",
-      "photo": "https://picsum.photos/250?image=9"
-    },
-    {
-      "nama": "Programmer",
-    },
-    {
-      "nama": "Scientist",
-      "photo": "https://picsum.photos/250?image=9"
-    },
-  ];
+  List<Map<String, dynamic>> categoryList = [];
 
   List<Map<String, dynamic>> mentorList = [];
 
